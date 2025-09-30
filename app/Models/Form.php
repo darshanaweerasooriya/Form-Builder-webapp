@@ -9,5 +9,15 @@ class Form extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title'];
+
+    public function fields()
+    {
+        return $this->hasMany(FormField::class)->orderBy('order');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(FormSubmission::class);
+    }
 }
