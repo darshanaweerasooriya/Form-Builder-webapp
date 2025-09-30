@@ -1,15 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\FormController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::get('/forms', [FormController::class, 'index']);
+Route::post('/forms', [FormController::class, 'store']);
+Route::get('/forms/{id}', [FormController::class, 'show']);
+Route::put('/forms/{id}', [FormController::class, 'update']);
+Route::delete('/forms/{id}', [FormController::class, 'destroy']);
+Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
